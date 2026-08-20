@@ -1,0 +1,25 @@
+services:
+
+  # ── Service 1: FastAPI Backend ──────────────────────────
+  - type: web
+    name: disease-prediction-api
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # ── Service 2: Streamlit Frontend ───────────────────────
+  - type: web
+    name: disease-prediction-frontend
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run frontend/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: API_URL
+        value: https://disease-prediction-api.onrender.com

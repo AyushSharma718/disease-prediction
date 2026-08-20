@@ -2,6 +2,7 @@ import math
 import pandas as pd
 import requests
 import streamlit as st
+import os
 
 # ----------------------------------------------------------------
 # Page config — MUST be first streamlit command
@@ -13,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 
 
 def check_api_health():
